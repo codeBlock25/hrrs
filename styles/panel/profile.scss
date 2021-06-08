@@ -1,0 +1,203 @@
+.profile_page {
+    width: 100%;
+    height: fit-content;
+    min-height: fit-content;
+    padding: 0 8%;
+    display: flex;
+
+    .details {
+        width: 100%;
+        height: fit-content;
+        min-height: fit-content;
+        display: flex;
+        padding: 50px 0;
+
+        .avatar {
+            width: 10vw;
+            height: 10vw;
+            min-width: 180px;
+            min-height: 180px;
+            max-width: 180px;
+            max-height: 180px;
+            display: flex;
+            align-self: center;
+            background-image: url(/assets/images/avatar.jpg);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            margin: 0 20px;
+        }
+
+        .content {
+            width: 100%;
+            height: fit-content;
+            min-height: fit-content;
+            display: inline-block;
+            padding: 10px 0;
+
+            .txt {
+                width: 100%;
+                height: fit-content;
+                min-height: fit-content;
+                font-size: 1.2em;
+                color: #626262;
+            }
+
+            .btn {
+                width: 150px;
+                min-width: 150px;
+                height: 45px;
+                margin: 20px 10px;
+
+                &:nth-of-type(1) {
+                    border: #f45e14 2px solid;
+                }
+
+                &:nth-of-type(2) {
+                    background-color: #f45e14;
+                    color: white;
+                }
+            }
+        }
+    }
+
+
+    ul {
+        width: 100%;
+        height: fit-content;
+        min-height: fit-content;
+
+        .formBody {
+            width: 100%;
+            height: fit-content;
+            min-height: fit-content;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2em 0.8em;
+            justify-content: space-between;
+
+            .division {
+                display: flex;
+                width: 49%;
+                justify-content: space-between;
+            }
+
+            .inputBox {
+                margin: 15px 0;
+                width: 45%;
+                height: fit-content;
+                min-height: fit-content;
+                display: flex;
+                flex-direction: column;
+
+                &.textarea {
+                    width: 100%;
+                    min-width: 100%;
+                }
+
+                @media (max-width: 500px) {
+                    width: 100%;
+                    min-width: 100%;
+                }
+
+                .MuiFormGroup-root {
+                    display: flex;
+                    flex-direction: row;
+                }
+
+                .radio-box {
+                    width: 45%;
+                    padding: .3em 0 .3em 0;
+                }
+
+                .MuiRadio-colorSecondary.Mui-checked {
+                    color: #f45e14;
+                }
+
+                .icon svg {
+                    color: #a3a3a3;
+                    fill: #a3a3a3;
+                    width: 18px;
+                    min-width: 18px;
+                }
+
+                input,
+                label {
+                    color: #848484 !important;
+                    font-family: Noto, sans-serif !important;
+                }
+
+                input {
+                    padding: 13px 14px !important;
+                }
+
+                label,
+                legend.MuiFormLabel-root {
+                    width: 100%;
+                    height: fit-content;
+                    min-height: fit-content;
+                    font-size: 1em;
+                    font-weight: 500;
+                    padding: 1.3em 0 .3em 0;
+                    color: #717171;
+                }
+
+                .MuiOutlinedInput-notchedOutline,
+                label.Mui-focused {
+                    border-color: #e6e6e6 !important;
+                    border-width: 2px !important;
+                }
+
+                .icon_btn {
+                    width: 25px;
+                    height: 25px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 40px;
+                    background-color: #f45e14;
+                    padding-top: 5px;
+                    cursor: pointer;
+
+                    svg {
+                        width: 14px !important;
+                        min-width: 14px !important;
+                        color: rgb(255, 255, 255);
+                        fill: rgb(255, 255, 255);
+                    }
+
+                    &:hover {
+                        background-color: lighten($color: #f45e14, $amount: 10);
+                    }
+                }
+            }
+
+            .action {
+                width: 100%;
+                height: 50px;
+                display: flex;
+                margin: 10px auto;
+                margin-top: 20px;
+                justify-content: center;
+
+                .submit_btn {
+                    width: 80%;
+                    max-width: 120px;
+                    max-width: 500px;
+                    height: 60px;
+                    background-color: white;
+                    color: #f45e14;
+                    margin: 0 15px;
+                    font-size: 1.2em;
+
+                    &.loading {
+                        opacity: 0.6;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+        }
+    }
+
+}

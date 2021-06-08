@@ -1,12 +1,12 @@
 import { Component } from "react";
 import Router from "next/router";
 
-export default class Index extends Component {
+export default class _error extends Component {
   componentDidMount = () => {
-    Router.push("/panel/dashboard");
+    // Router.push("/panel/error");
   };
 
   render() {
-    return <div />;
+    return <div>Error</div>;
   }
 }

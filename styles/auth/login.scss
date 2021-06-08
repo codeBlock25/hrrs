@@ -1,0 +1,44 @@
+.AuthPage {
+
+    &.Login {
+
+        .content_form {
+            min-height: 500px;
+            justify-content: center;
+
+            .main_txt {
+                font-size: 3.2em;
+            }
+
+            form {
+
+                .inputBox {
+                    width: 100%;
+                    min-width: 100%;
+
+                    input {
+                        padding: 20px 14px !important;
+                    }
+
+                    label {
+                        font-size: 1.2em;
+                    }
+
+                    .MuiFormHelperText-contained {
+                        font-size: 1em;
+                    }
+
+                    .icon svg {
+                        width: 30px;
+                        min-width: 30px;
+                    }
+
+                }
+
+                .action {
+                    .submit_btn {}
+                }
+            }
+        }
+    }
+}
