@@ -27,7 +27,7 @@ export enum Gender {
   female,
 }
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [registrationNumber, setRegistrationNumber] = useState<string>("");
