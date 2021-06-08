@@ -20,40 +20,28 @@ export default function LoginPage() {
   const [isVisible, setVisibilityState] = useState<boolean>(false);
   return (
     <>
-      {" "}
       <Head>
-        {" "}
-        <title>Login - HRRS | Housing & Hostel</title>{" "}
-      </Head>{" "}
+        <title>Login - HRRS | Housing & Hostel</title>
+      </Head>
       <section className="AuthPage Login">
-        {" "}
         <div className="content_detail">
-          {" "}
-          <h3 className="main_txt">Hello, Student</h3>{" "}
+          <h3 className="main_txt">Hello, Student</h3>
           <p className="txt">
-            {" "}
-            Welcome Nnamdi Azikiwe University Students Hostel Portal{" "}
-          </p>{" "}
+            Welcome Nnamdi Azikiwe University Students Hostel Portal
+          </p>
           <p className="txt">
-            {" "}
             Please fill in the details to create an account or proceed to login
-            if you are returning student{" "}
-          </p>{" "}
+            if you are returning student
+          </p>
           <Link href="/auth/register">
-            {" "}
-            <a className="btn_link">Create Account</a>{" "}
-          </Link>{" "}
-        </div>{" "}
+            <a className="btn_link">Create Account</a>
+          </Link>
+        </div>
         <div className="content_form">
-          {" "}
-          <h3 className="main_txt">Login Portal</h3>{" "}
+          <h3 className="main_txt">Login Portal</h3>
           <form>
-            {" "}
             <div className="inputBox">
-              {" "}
-              <label htmlFor="registration_number">
-                Registration Number
-              </label>{" "}
+              <label htmlFor="registration_number">Registration Number</label>
               <TextField
                 variant="outlined"
                 type="text"
@@ -69,20 +57,18 @@ export default function LoginPage() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start" className="icon">
-                      {" "}
                       <ReaderOutline
                         color={"#00000"}
                         height="20px"
                         width="20px"
-                      />{" "}
+                      />
                     </InputAdornment>
                   ),
                 }}
-              />{" "}
-            </div>{" "}
+              />
+            </div>
             <div className="inputBox">
-              {" "}
-              <label htmlFor="password">Password</label>{" "}
+              <label htmlFor="password">Password</label>
               <TextField
                 variant="outlined"
                 type="password"
@@ -99,17 +85,15 @@ export default function LoginPage() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start" className="icon">
-                      {" "}
                       <LockClosedOutline
                         color={"#00000"}
                         height="20px"
                         width="20px"
-                      />{" "}
+                      />
                     </InputAdornment>
                   ),
                   endAdornment: (
                     <InputAdornment position="end">
-                      {" "}
                       {!isVisible ? (
                         <motion.div
                           className="icon_btn"
@@ -117,13 +101,12 @@ export default function LoginPage() {
                             setVisibilityState(!isVisible);
                           }}
                         >
-                          {" "}
                           <EyeOutline
                             color={"#fff"}
                             title={"see password"}
                             height="20px"
                             width="20px"
-                          />{" "}
+                          />
                         </motion.div>
                       ) : (
                         <motion.div
@@ -132,30 +115,27 @@ export default function LoginPage() {
                             setVisibilityState(!isVisible);
                           }}
                         >
-                          {" "}
                           <EyeOffOutline
                             color={"#fff"}
                             title={"hide password"}
                             height="20px"
                             width="20px"
-                          />{" "}
+                          />
                         </motion.div>
                       )}
                     </InputAdornment>
                   ),
                 }}
-              />{" "}
-            </div>{" "}
+              />
+            </div>
             <div className="action">
-              {" "}
               <Button type="submit" className="submit_btn">
-                {" "}
-                Log In{" "}
-              </Button>{" "}
-            </div>{" "}
-          </form>{" "}
-        </div>{" "}
-      </section>{" "}
+                Log In
+              </Button>
+            </div>
+          </form>
+        </div>
+      </section>
     </>
   );
 }
