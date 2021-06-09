@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { TextField, InputAdornment, Button } from "@material-ui/core";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 import { motion } from "framer-motion";
 
@@ -13,11 +13,44 @@ import {
   EyeOffOutline,
   LockClosedOutline,
 } from "react-ionicons";
+import { toast } from "react-toastify";
+import axios, { AxiosResponse } from "axios";
+import { server_url } from "../../config";
+import { useRouter } from "next/router";
+import { ClipLoader } from "react-spinners";
 
 export default function LoginPage() {
   const [registrationNumber, setRegistrationNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isVisible, setVisibilityState] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const { push } = useRouter();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      if (isLoading) return;
+      setLoading(true);
+      await axios
+        .get(
+          `${server_url}/auth/login?registrationNumber=${registrationNumber}&password=${password}`
+        )
+        .then(({ data: { token } }: AxiosResponse<{ token: string }>) => {
+          localStorage.setItem("token", token);
+          toast.success("Welcome Back!");
+          push("/panel/dashboard");
+        })
+        .catch((error) => {
+          console.log({ error });
+          toast.error(error?.response?.data?.message ?? "Network error");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } catch (error) {
+      setLoading(false);
+      toast.error("Network Error");
+    }
+  };
   return (
     <>
       <Head>
@@ -39,7 +72,7 @@ export default function LoginPage() {
         </div>
         <div className="content_form">
           <h3 className="main_txt">Login Portal</h3>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="inputBox">
               <label htmlFor="registration_number">Registration Number</label>
               <TextField
@@ -71,7 +104,7 @@ export default function LoginPage() {
               <label htmlFor="password">Password</label>
               <TextField
                 variant="outlined"
-                type="password"
+                type={isVisible ? "text" : "password"}
                 inputProps={{
                   id: "password",
                 }}
@@ -131,6 +164,7 @@ export default function LoginPage() {
             <div className="action">
               <Button type="submit" className="submit_btn">
                 Log In
+                {isLoading && <ClipLoader size={40} color="#f45e14" />}
               </Button>
             </div>
           </form>

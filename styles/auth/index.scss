@@ -1,3 +1,5 @@
+@import "../variable";
+
 .AuthPage {
     position: fixed;
     top: 0;
@@ -38,7 +40,7 @@
             text-align: center;
             justify-content: center;
             display: flex;
-            color: #f45e14;
+            color: $primaryColor;
         }
 
         form {
@@ -74,7 +76,7 @@
                 }
 
                 .MuiRadio-colorSecondary.Mui-checked {
-                    color: #f45e14;
+                    color: $primaryColor;
                 }
 
                 .icon svg {
@@ -118,7 +120,7 @@
                     align-items: center;
                     justify-content: center;
                     border-radius: 40px;
-                    background-color: #f45e14;
+                    background-color: $primaryColor;
                     padding-top: 5px;
                     cursor: pointer;
 
@@ -130,7 +132,7 @@
                     }
 
                     &:hover {
-                        background-color: lighten($color: #f45e14, $amount: 10);
+                        background-color: lighten($color: $primaryColor, $amount: 10);
                     }
                 }
             }
@@ -149,7 +151,7 @@
                     max-width: 500px;
                     height: 60px;
                     background-color: white;
-                    color: #f45e14;
+                    color: $primaryColor;
                     margin: 0 15px;
                     font-size: 1.2em;
 
@@ -169,7 +171,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background-color: #f45e14;
+        background-color: $primaryColor;
 
         @media (max-width: 800px) {
             display: none;
@@ -210,7 +212,7 @@
             text-align: center;
             justify-content: center;
             font-size: 1.7em;
-            color: #f45e14;
+            color: $primaryColor;
             font-weight: 600;
             line-height: 60px;
             margin: 2em auto 10px auto;

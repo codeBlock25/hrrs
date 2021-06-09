@@ -1,0 +1,53 @@
+@import "../variable";
+
+
+.Loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-image: linear-gradient(white 60%, #f45e14 160%);
+    z-index: 1000;
+    justify-content: center;
+    align-content: center;
+
+    .content {
+        width: 200px;
+        height: 200px;
+        display: flex;
+        background-color: transparent;
+        align-self: center;
+        flex-direction: column;
+        justify-content: center;
+
+        &>span {
+            align-self: center;
+        }
+
+        .logo {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-image: url(/assets/images/logo.png);
+
+        }
+
+        h3 {
+            width: 100%;
+            height: fit-content;
+            min-height: fit-content;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            padding: 20px 10px;
+            text-transform: uppercase;
+            font-size: 1.4em;
+            color: #533628;
+        }
+    }
+}

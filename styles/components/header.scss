@@ -1,3 +1,6 @@
+@import "../variable";
+
+
 header {
     // position: fixed;
     top: 0;
@@ -34,7 +37,7 @@ header {
         min-height: 40px;
         max-width: 40px;
         max-height: 40px;
-        color: #f45e14;
+        color: $primaryColor;
         margin: 5px 0 0 0;
 
         svg {

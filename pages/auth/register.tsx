@@ -10,7 +10,7 @@ import {
   Radio,
   FormControlLabel,
 } from "@material-ui/core";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
 import {
   PersonOutline,
@@ -21,6 +21,10 @@ import {
   EyeOffOutline,
   LockClosedOutline,
 } from "react-ionicons";
+import { toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
+import axios from "axios";
+import { server_url } from "../../config";
 
 export enum Gender {
   male,
@@ -37,6 +41,38 @@ export default function RegisterPage() {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isVisible, setVisibilityState] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState(false);
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      if (isLoading) return;
+      await axios
+        .post(`${server_url}/auth/register`, {
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          password: password,
+          gender,
+          registrationNumber,
+          phone_number: phoneNumber,
+        })
+        .then(() => {
+          toast.success("kjh");
+        })
+        .catch((error) => {
+          console.log({ error });
+          toast.error(error?.response?.data?.message ?? "Network error");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      toast.error("Network");
+    }
+  };
   return (
     <>
       <Head>
@@ -45,12 +81,13 @@ export default function RegisterPage() {
       <section className="AuthPage Register">
         <div className="content_form">
           <h3 className="main_txt">Create a Student Account</h3>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="inputBox">
               <label htmlFor="first_name">First Name</label>
               <TextField
                 variant="outlined"
                 type="text"
+                autoComplete="given-name"
                 inputProps={{ id: "first_name" }}
                 required
                 placeholder="Enter your first name."
@@ -77,6 +114,7 @@ export default function RegisterPage() {
               <TextField
                 variant="outlined"
                 type="text"
+                autoComplete="family-name"
                 inputProps={{ id: "last_name" }}
                 required
                 placeholder="Enter your last name."
@@ -102,6 +140,7 @@ export default function RegisterPage() {
               <TextField
                 variant="outlined"
                 type="text"
+                autoComplete="username"
                 inputProps={{ id: "registration_number" }}
                 required
                 placeholder="Enter your registration number."
@@ -127,6 +166,7 @@ export default function RegisterPage() {
               <TextField
                 variant="outlined"
                 type="email"
+                autoComplete="email"
                 inputProps={{ id: "email" }}
                 required
                 placeholder="Enter your email address."
@@ -154,6 +194,7 @@ export default function RegisterPage() {
                 type="tel"
                 inputProps={{ id: "phone_number" }}
                 required
+                autoComplete="tel-national"
                 placeholder="Enter your phone number."
                 value={phoneNumber}
                 onChange={(e) => {
@@ -202,7 +243,8 @@ export default function RegisterPage() {
               <label htmlFor="password">Password</label>
               <TextField
                 variant="outlined"
-                type="password"
+                type={isVisible ? "text" : "password"}
+                autoComplete="new-password"
                 inputProps={{ id: "password" }}
                 required
                 placeholder="Enter your password."
@@ -261,7 +303,8 @@ export default function RegisterPage() {
               <label htmlFor="confirm_password">Confirm Password</label>
               <TextField
                 variant="outlined"
-                type="password"
+                type={isVisible ? "text" : "password"}
+                autoComplete="current-password"
                 inputProps={{ id: "confirm_password" }}
                 required
                 placeholder="Confirm your password"
@@ -317,7 +360,8 @@ export default function RegisterPage() {
             </div>
             <div className="action">
               <Button type="submit" className="submit_btn">
-                Create Account
+                Create Account{" "}
+                {isLoading && <ClipLoader size={40} color="#f45e14" />}
               </Button>
             </div>
           </form>

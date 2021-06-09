@@ -17,9 +17,22 @@ import "../styles/components/main.scss";
 import "../styles/panel/dashboard.scss";
 import "../styles/panel/profile.scss";
 
+//styling for loading
+import "../styles/components/loading.scss";
+import "../styles/auth/verification.scss";
+import "react-toastify/dist/ReactToastify.css";
+
 import type { AppProps } from "next/app";
+import Loading from "../components/loading";
+import { ToastContainer } from "react-toastify";
 
 function AppIndex({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Loading />
+      <ToastContainer />
+      <Component {...pageProps} />
+    </>
+  );
 }
 export default AppIndex;
