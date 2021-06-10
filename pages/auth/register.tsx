@@ -25,6 +25,7 @@ import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 import axios from "axios";
 import { server_url } from "../../config";
+import { useRouter } from "next/router";
 
 export enum Gender {
   male,
@@ -42,6 +43,7 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isVisible, setVisibilityState] = useState<boolean>(false);
   const [isLoading, setLoading] = useState(false);
+  const { push } = useRouter();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -58,7 +60,8 @@ export default function RegisterPage() {
           phone_number: phoneNumber,
         })
         .then(() => {
-          toast.success("kjh");
+          toast.success("successful");
+          push(`/auth/verification?registrationNumber=${registrationNumber}`);
         })
         .catch((error) => {
           console.log({ error });
@@ -361,7 +364,7 @@ export default function RegisterPage() {
             <div className="action">
               <Button type="submit" className="submit_btn">
                 Create Account{" "}
-                {isLoading && <ClipLoader size={40} color="#f45e14" />}
+                {isLoading && <ClipLoader size={30} color="#f45e14" />}
               </Button>
             </div>
           </form>

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import ReactCodeInput from "react-verification-code-input";
-import { server_url } from "../../../config";
+import { server_url } from "../../config";
 import { ClipLoader } from "react-spinners";
 import { Check } from "@material-ui/icons";
 
@@ -65,7 +65,7 @@ export default function UserVerificationPage() {
           </div>
           <Button type="submit" className="btn">
             Verify Account
-            {isLoading && <ClipLoader size={40} color="#f45e14" />}
+            {isLoading && <ClipLoader size={30} color="#fff" />}
           </Button>
         </form>
       ) : (

@@ -164,7 +164,7 @@ export default function LoginPage() {
             <div className="action">
               <Button type="submit" className="submit_btn">
                 Log In
-                {isLoading && <ClipLoader size={40} color="#f45e14" />}
+                {isLoading && <ClipLoader size={30} color="#f45e14" />}
               </Button>
             </div>
           </form>

@@ -1,135 +1,92 @@
 @import "../variable";
 
-.profile_page {
+.setting_page {
     width: 100%;
     height: fit-content;
     min-height: fit-content;
-    padding: 0 8%;
+    padding: 0%;
     display: flex;
+    background-color: transparent !important;
 
     @media (max-width: 600px) {
         padding: 0 5%;
     }
 
-    .details {
+    .title {
+        width: 100%;
+        height: fit-content;
+        min-height: fit-content;
+        padding: 2em 0 10px 0;
+        font-size: 2.2em;
+        margin: 0 auto;
+        text-align: center;
+        justify-content: center;
+        display: flex;
+    }
+
+    .container {
         width: 100%;
         height: fit-content;
         min-height: fit-content;
         display: flex;
-        padding: 50px 0;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
 
-        @media (max-width: 550px) {
-            flex-direction: column;
-        }
-
-        .avatar {
-            width: 10vw;
-            height: 10vw;
-            min-width: 150px;
-            min-height: 150px;
-            max-width: 180px;
-            max-height: 180px;
-            display: flex;
-            align-self: center;
-            background-image: url(/assets/images/avatar.jpg);
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            border-radius: 50%;
-            margin: 0 20px;
-        }
-
-        .content {
-            width: 100%;
+        .formBody {
+            width: 45%;
             height: fit-content;
             min-height: fit-content;
-            display: inline-block;
-            padding: 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2em 2em;
+            justify-content: space-between;
+            background-color: white;
+            border-radius: 10px;
+            margin: 20px 0;
+
+            @media (max-width: 800px) {
+                width: 100%;
+                min-width: 100%;
+            }
+
+            .title {
+                width: 100%;
+                height: fit-content;
+                min-height: fit-content;
+                display: flex;
+                font-size: 1.2em;
+                font-weight: 500;
+                text-align: left;
+                justify-content: left;
+                padding-bottom: 0px;
+            }
+
+            .division {
+                display: flex;
+                width: 49%;
+                justify-content: space-between;
+            }
 
             .txt {
                 width: 100%;
                 height: fit-content;
                 min-height: fit-content;
-                font-size: 1.2em;
-                color: #626262;
-                margin-bottom: 15px;
-            }
-
-            .btn {
-                width: 40%;
-                max-width: 200px;
-                min-width: 120px;
-                height: 45px;
-                margin: 5px 10px;
-
-                &:nth-of-type(1) {
-                    border: $primaryColor 2px solid;
-                }
-
-                &:nth-of-type(2) {
-                    background-color: $primaryColor;
-                    color: white;
-                }
-            }
-        }
-    }
-
-
-    ul {
-        width: 100%;
-        height: fit-content;
-        min-height: fit-content;
-
-        .formBody {
-            width: 100%;
-            height: fit-content;
-            min-height: fit-content;
-            display: flex;
-            flex-wrap: wrap;
-            padding: 2em 0.8em;
-            justify-content: space-between;
-
-            .division {
                 display: flex;
-                width: 45%;
-                justify-content: space-between;
-
-                @media (max-width: 850px) {
-                    width: 100%;
-                    min-width: 100%;
-
-                    .inputBox {
-                        width: 48% !important;
-                        min-width: 48% !important;
-                    }
-
-                }
-
-                @media (max-width: 650px) {
-                    flex-wrap: wrap;
-
-                    .inputBox {
-                        width: 100% !important;
-                        min-width: 100% !important;
-                    }
-
-                }
+                color: #888;
+                font-size: 1em;
+                margin: 10px 0;
             }
 
             .inputBox {
-                margin: 15px 0;
-                width: 45%;
+                margin: 15px 0 10px 0;
+                width: 100%;
+                min-width: 100%;
                 height: fit-content;
                 min-height: fit-content;
                 display: flex;
                 flex-direction: column;
 
                 &.textarea {
-                    width: 100%;
-                    min-width: 100%;
-                }
-
-                @media (max-width: 850px) {
                     width: 100%;
                     min-width: 100%;
                 }
@@ -230,27 +187,30 @@
                     }
                 }
             }
-        }
-    }
 
-    .submit_btn {
-        width: 50%;
-        max-width: 350px;
-        min-width: 200px;
-        height: 50px;
-        display: flex;
-        border-radius: 5px;
-        background-color: $primaryColor;
-        text-align: center;
-        justify-content: center;
-        font-size: 1.2em;
-        color: white;
-        font-weight: 600;
-        line-height: 50px;
-        margin: 2em auto 4em auto;
+            .submit_btn {
+                width: 50%;
+                max-width: 350px;
+                min-width: 200px;
+                height: 50px;
+                display: flex;
+                border-radius: 5px;
+                background-color: $primaryColor;
+                text-align: center;
+                justify-content: center;
+                font-size: 1.2em;
+                color: white;
+                font-weight: 600;
+                line-height: 50px;
+                margin: 2em 0 4em 0;
+                align-self: flex-start;
+                font-size: 1em;
 
-        &:hover {
-            background-color: darken($color: $primaryColor, $amount: 10);
+                &:hover {
+                    background-color: darken($color: $primaryColor, $amount: 10);
+                }
+            }
         }
+
     }
 }

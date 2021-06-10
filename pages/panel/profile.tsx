@@ -7,8 +7,13 @@ import {
   Select,
 } from "@material-ui/core";
 import { toast } from "react-toastify";
-import { MouseEvent, useState } from "react";
+import { FormEvent, MouseEvent, useEffect, useState } from "react";
 import { PersonOutline } from "react-ionicons";
+import { useSelector } from "react-redux";
+import { AppReducerType } from "../../store";
+import { Gender } from "../auth/register";
+import axios from "axios";
+import { server_url } from "../../config";
 
 export enum ImageAction {
   upload,
@@ -35,6 +40,7 @@ export default function ProfilePage() {
   const [guardian_lastName, setGuardianLastName] = useState<String>("");
   const [guardian_relationship, setGuardianRelationship] = useState<String>("");
   const [guardian_phoneNumber, setGuardianPhoneNumber] = useState<String>("");
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const handleImageAction = ({
     evt,
@@ -51,10 +57,110 @@ export default function ProfilePage() {
       toast.success("Error performing profile image action action.");
     }
   };
+
+  const { details } = useSelector<
+    AppReducerType,
+    {
+      details: {
+        first_name?: string;
+        last_name?: string;
+        email?: string;
+        password?: string;
+        gender?: Gender;
+        registrationNumber?: string;
+        phone_number?: string;
+        verificationCode?: string;
+        isVerified?: boolean;
+        date?: Date;
+
+        yearOfStudy?: string;
+        department?: string;
+        nationality?: string;
+        state?: string;
+        lga?: string;
+        address?: string;
+        guardian_firstName?: string;
+        guardian_lastName?: string;
+        guardian_relationship?: string;
+        guardian_phoneNumber?: string;
+        _id?: string;
+        userID?: string;
+      };
+    }
+  >((state) => {
+    return {
+      details: state.record.details,
+    };
+  });
+  useEffect(() => {
+    setFirstName(details.first_name ?? "");
+    setLastName(details.last_name ?? "");
+    setEmail(details.email ?? "");
+    setPhoneNumber(details.phone_number ?? "");
+    setRegistrationNumber(details.registrationNumber ?? "");
+    setYearOfStudy(details.yearOfStudy ?? "");
+    setDepartment(details.department ?? "");
+    setNationality(details.nationality ?? "");
+    setState(details.state ?? "");
+    setLGA(details.lga ?? "");
+    setHomeAddress(details.address ?? "");
+
+    //guardian
+    setGuardianFirstName(details.guardian_firstName ?? "");
+    setGuardianLastName(details.guardian_lastName ?? "");
+    setGuardianRelationship(details.guardian_relationship ?? "");
+    setGuardianPhoneNumber(details.guardian_phoneNumber ?? "");
+    console.log(details);
+  }, [details]);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    try {
+      let token = localStorage.getItem("token");
+      if (isLoading) return;
+      setLoading(true);
+      await axios
+        .put(
+          `${server_url}/student/update`,
+          {
+            firstName,
+            lastName,
+            email,
+            registrationNumber,
+            phone_number: phoneNumber,
+            yearOfStudy,
+            department,
+            nationality,
+            state,
+            lga,
+            address,
+            guardian_firstName,
+            guardian_lastName,
+            guardian_relationship,
+            guardian_phoneNumber,
+          },
+          {
+            headers: `Bearer ${token}`,
+          }
+        )
+        .then(() => {
+          toast.success("Update successful");
+        })
+        .catch((error) => {
+          console.log({ error });
+          toast.error(error?.response?.data?.message ?? "Network error");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
   return (
     <>
       <Main>
-        <section className="page_view profile_page">
+        <form className="page_view profile_page" onSubmit={handleSubmit}>
           <div className="details">
             <span className="avatar"></span>
             <div className="content">
@@ -447,9 +553,9 @@ export default function ProfilePage() {
                   }}
                   required
                   placeholder="Enter your guardian's last name."
-                  value={lastName}
+                  value={guardian_lastName}
                   onChange={(e) => {
-                    setLastName(e.target.value);
+                    setGuardianLastName(e.target.value);
                   }}
                   InputProps={{
                     startAdornment: (
@@ -504,12 +610,22 @@ export default function ProfilePage() {
                     setGuardianRelationship(e.target.value as string);
                   }}
                 >
-                  <MenuItem value="">Select</MenuItem>
+                  <MenuItem value="">
+                    <em>Select</em>
+                  </MenuItem>
+                  <MenuItem value="parent / legal guardian">
+                    Parent / Legal Guardian
+                  </MenuItem>
+                  <MenuItem value="sibling">Sibling</MenuItem>
+                  <MenuItem value="partner">Partner</MenuItem>
                 </Select>
               </div>
             </div>
           </ul>
-        </section>
+          <Button type="submit" className="submit_btn">
+            Update
+          </Button>
+        </form>
       </Main>
     </>
   );
