@@ -2,17 +2,17 @@ import { Button } from "@material-ui/core";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
+import { MailOutline } from "react-ionicons";
 import { toast } from "react-toastify";
-import ReactCodeInput from "react-verification-code-input";
+import { TextField, InputAdornment } from "@material-ui/core";
 import { server_url } from "../../config";
 import { ClipLoader } from "react-spinners";
 import { Check } from "@material-ui/icons";
 
 export default function UserVerificationPage() {
-  const [verificationCode, setVerification] = useState<string>("");
-  const [msg, setMsg] = useState<string>("");
+  const [email, SetEmail] = useState<string>("");
   const [isLoading, setLoading] = useState<boolean>(false);
-  const { query, push } = useRouter();
+  const { push } = useRouter();
   const [isVerified, setVerificationStatus] = useState(false);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,19 +20,12 @@ export default function UserVerificationPage() {
       setLoading(true);
       if (isLoading) return;
       await axios
-        .put(`${server_url}/auth/verify`, {
-          registrationNumber: query.registrationNumber,
-          verificationCode,
+        .put(`${server_url}/auth/forgot-password`, {
+          email,
         })
-        .then(
-          ({
-            data: { message, token },
-          }: AxiosResponse<{ token: string; message: string }>) => {
-            localStorage.setItem("token", token);
-            setMsg(message);
-            setVerificationStatus(true);
-          }
-        )
+        .then(() => {
+          setVerificationStatus(true);
+        })
         .catch((error) => {
           toast.error(error?.response?.data?.message ?? "Network error");
         })
@@ -49,22 +42,34 @@ export default function UserVerificationPage() {
     <section className="UserVerification">
       {!isVerified ? (
         <form className="container" onSubmit={handleSubmit}>
-          <h3 className="title">User Verification</h3>
+          <h3 className="title">Account Recovery</h3>
           <p className="txt">
-            Please enter the 6-digit code sent your mail in the form below to
-            Verification your email address
+            A mail containing your new password would be sent to you
           </p>
           <div className="inputBox">
-            <ReactCodeInput
-              autoFocus
+            <label htmlFor="email">Email</label>
+            <TextField
+              variant="outlined"
+              type="text"
+              autoComplete="email"
+              inputProps={{ id: "email" }}
               required
-              onChange={(value) => {
-                setVerification(value);
+              placeholder="Enter your registered email."
+              value={email}
+              onChange={(e) => {
+                SetEmail(e.target.value);
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" className="icon">
+                    <MailOutline color={"#00000"} height="20px" width="20px" />
+                  </InputAdornment>
+                ),
               }}
             />
           </div>
           <Button type="submit" className="btn">
-            Verify Account
+            Generate Password
             {isLoading && <ClipLoader size={30} color="#fff" />}
           </Button>
         </form>
@@ -73,15 +78,17 @@ export default function UserVerificationPage() {
           <div className="icon">
             <Check />
           </div>
-          <div className="title">{msg}</div>
+          <div className="title">
+            Your new password has been generated and sent to your email.
+          </div>
 
           <Button
             onClick={() => {
-              location.assign("/panel/dashboard");
+              push("/auth/login");
             }}
             className="btn"
           >
-            Proceed to dashboard
+            Proceed to Login
           </Button>
         </div>
       )}

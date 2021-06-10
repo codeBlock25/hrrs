@@ -42,21 +42,86 @@
         }
 
         .inputBox {
-            width: fit-content;
-            min-width: fit-content;
+            margin: 15px 0;
+            width: 80%;
+            height: fit-content;
+            min-height: fit-content;
             display: flex;
-            margin: 10px auto 30px auto;
+            flex-direction: column;
+            margin: 10px auto 20px auto;
 
-            input:focus {
-                border: 1px solid #f45e14;
-                caret-color: #f45e14;
+            @media (max-width: 500px) {
+                width: 100%;
+                min-width: 100%;
+            }
+
+            .MuiFormGroup-root {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .radio-box {
+                width: 45%;
+                padding: .3em 0 .3em 0;
+            }
+
+            .MuiRadio-colorSecondary.Mui-checked {
+                color: $primaryColor;
+            }
+
+            .icon svg {
+                color: #a3a3a3;
+                fill: #a3a3a3;
+                width: 18px;
+                min-width: 18px;
             }
 
             input {
-                font-family: roboto, sans-serif;
-                font-weight: 600;
+                padding: 20px 14px !important;
+                font-size: 1.2em;
+            }
+
+            label,
+            legend.MuiFormLabel-root {
+                width: 100%;
+                height: fit-content;
+                min-height: fit-content;
+                font-size: 1em;
+                font-weight: 500;
+                padding: 1.3em 0 .3em 0;
+                color: #717171;
+            }
+
+            .MuiOutlinedInput-notchedOutline,
+            label.Mui-focused {
+                border-color: #e6e6e6 !important;
+                border-width: 2px !important;
+            }
+
+            .icon_btn {
+                width: 25px;
+                height: 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 40px;
+                background-color: $primaryColor;
+                padding-top: 5px;
+                cursor: pointer;
+
+                svg {
+                    width: 14px !important;
+                    min-width: 14px !important;
+                    color: rgb(255, 255, 255);
+                    fill: rgb(255, 255, 255);
+                }
+
+                &:hover {
+                    background-color: lighten($color: $primaryColor, $amount: 10);
+                }
             }
         }
+
 
         .btn {
             width: 70%;

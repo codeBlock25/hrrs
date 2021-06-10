@@ -37,7 +37,7 @@ export default function LoginPage() {
         .then(({ data: { token } }: AxiosResponse<{ token: string }>) => {
           localStorage.setItem("token", token);
           toast.success("Welcome Back!");
-          push("/panel/dashboard");
+          location.assign("/panel/dashboard");
         })
         .catch((error) => {
           console.log({ error });
@@ -166,6 +166,11 @@ export default function LoginPage() {
               Don't have an account?{" "}
               <Link href="/auth/register">
                 <a>Register</a>
+              </Link>
+            </p>
+            <p className="link">
+              <Link href="/auth/forgot-password">
+                <a>Forgot Password</a>
               </Link>
             </p>
             <div className="action">
