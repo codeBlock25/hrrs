@@ -8,16 +8,38 @@ import {
 } from "@material-ui/icons";
 import { ExitOutline, SettingsOutline } from "react-ionicons";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { AppReducerType, StoreActionType } from "../store";
 
 export default function SideBar() {
   const { push } = useRouter();
+  const dispatch = useDispatch();
+  const { isNavOpen, name } = useSelector<
+    AppReducerType,
+    { isNavOpen: boolean; name: string }
+  >((state) => {
+    return {
+      isNavOpen: state.event.isNavOpen,
+      name: `${state.record?.details?.first_name ?? "No"} ${
+        state.record?.details?.last_name ?? "Name"
+      }`,
+    };
+  });
   return (
     <>
-      <nav className="SideBar">
+      <div
+        className={isNavOpen ? "cover active" : "cover"}
+        onClick={() => {
+          dispatch({ type: StoreActionType.toggleNavBar });
+        }}
+      ></div>
+      <nav className={isNavOpen ? "SideBar active" : "SideBar"}>
         <span className="header_logo" />
         <div className="account_details">
           <span className="avatar" />
-          <h4 className="user_name">John Deo</h4>
+          <h4 className="user_name" style={{ textTransform: "capitalize" }}>
+            {name}
+          </h4>
           <p className="user_level">student</p>
         </div>
         <div className="nav_links">

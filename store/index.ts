@@ -1,10 +1,16 @@
 import { createStore, combineReducers } from "redux";
-import { EventReducerType } from "./reducer/event";
-import { recordReducer, RecordReducerType } from "./reducer/record";
+import {
+  recordReducer,
+  RecordReducerType,
+  EventReducerType,
+  eventReducer,
+} from "./reducer";
 
 export enum StoreActionType {
   initDetails,
   initReservationDetails,
+  toggleNavBar,
+  addReservationDetails,
 }
 
 export interface ActionType<T = any> {
@@ -17,8 +23,9 @@ export interface AppReducerType {
   record: RecordReducerType;
 }
 
-const AppReducer = combineReducers({
+const AppReducer = combineReducers<AppReducerType, ActionType>({
   record: recordReducer,
+  event: eventReducer,
 });
 
 const store = createStore(AppReducer);

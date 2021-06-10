@@ -51,7 +51,7 @@
      top: 0;
      left: 0;
      width: 100%;
-     height: 100%;
+     //  height: 100%;
      display: flex;
      background-color: #fbfbfb82;
      z-index: 4000;
@@ -146,8 +146,8 @@
                          width: 15px;
                          height: 15px;
                          position: absolute;
-                         left: -10px;
-                         margin: 3px 0 0 0;
+                         left: 2px;
+                         margin: -3px 0 0 0;
                          border-radius: 10px;
                          border: 4px $primaryColor solid;
                          opacity: 0;

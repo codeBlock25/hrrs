@@ -1,3 +1,4 @@
+import { concat } from "lodash";
 import { ActionType, StoreActionType } from "..";
 import { Gender } from "../../pages/auth/register";
 
@@ -59,6 +60,11 @@ export const recordReducer = (
       return { ...store, details: action.payload };
     case StoreActionType.initReservationDetails:
       return { ...store, reservations: action.payload };
+    case StoreActionType.addReservationDetails:
+      return {
+        ...store,
+        reservations: concat(store.reservations, [action.payload]),
+      };
     default:
       return { ...store };
   }
