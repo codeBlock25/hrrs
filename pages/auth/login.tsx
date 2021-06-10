@@ -161,6 +161,13 @@ export default function LoginPage() {
                 }}
               />
             </div>
+
+            <p className="link">
+              Don't have an account?{" "}
+              <Link href="/auth/register">
+                <a>Register</a>
+              </Link>
+            </p>
             <div className="action">
               <Button type="submit" className="submit_btn">
                 Log In

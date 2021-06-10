@@ -111,7 +111,6 @@ export default function RegisterPage() {
                 }}
               />
             </div>
-
             <div className="inputBox">
               <label htmlFor="last_name">Last Name</label>
               <TextField
@@ -361,6 +360,12 @@ export default function RegisterPage() {
                 }}
               />
             </div>
+            <p className="link">
+              Already have an account?{" "}
+              <Link href="/auth/login">
+                <a>Login</a>
+              </Link>
+            </p>
             <div className="action">
               <Button type="submit" className="submit_btn">
                 Create Account{" "}
