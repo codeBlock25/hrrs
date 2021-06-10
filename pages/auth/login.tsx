@@ -34,13 +34,15 @@ export default function LoginPage() {
         .get(
           `${server_url}/auth/login?registrationNumber=${registrationNumber}&password=${password}`
         )
-        .then(({ data: { token } }: AxiosResponse<{ token: string }>) => {
-          localStorage.setItem("token", token);
+        .then(async ({ data: { token } }: AxiosResponse<{ token: string }>) => {
+          await localStorage.setItem("token", token);
           toast.success("Welcome Back!");
           location.assign("/panel/dashboard");
         })
         .catch((error) => {
-          console.log({ error });
+          if (error?.response?.data?.statusCode === 403) {
+            push(`/auth/verification?registrationNumber=${registrationNumber}`);
+          }
           toast.error(error?.response?.data?.message ?? "Network error");
         })
         .finally(() => {

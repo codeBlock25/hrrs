@@ -23,7 +23,9 @@ export default function Loading() {
     if (!shouldReload) return;
     setShouldReload(false);
     if (!token || token === "") {
-      push("/auth/login");
+      if (!isException) {
+        push("/auth/login");
+      }
       setTimeout(() => {
         setLoading(false);
       }, 3000);

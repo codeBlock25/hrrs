@@ -20,12 +20,15 @@ import { find } from "lodash";
 import { useDispatch } from "react-redux";
 import { StoreActionType } from "../../store";
 import { ClipLoader } from "react-spinners";
+import { Check } from "@material-ui/icons";
+import { useRouter } from "next/router";
 
 export default function AddReservationForm({ cancel }: { cancel: () => void }) {
   const [hostel, setHostel] = useState<string>("basil a oli boys hostel");
   const [isSelected, setSelectedStatus] = useState(false);
+  const [final, setFinal] = useState(false);
   const [floor, setFloor] = useState("ground floor");
-  const [bedSpace, setBedSpace] = useState("a");
+  const [bedSpace, setBedSpace] = useState<number>(0);
   const [room_name, setRoomName] = useState("");
   const [isLoading, setLoading] = useState<boolean>(false);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +57,7 @@ export default function AddReservationForm({ cancel }: { cancel: () => void }) {
         setLoading(false);
       });
   };
+  const { push } = useRouter();
   const dispatch = useDispatch();
   const handleSubmit = async () => {
     if (isLoading) return;
@@ -97,7 +101,43 @@ export default function AddReservationForm({ cancel }: { cancel: () => void }) {
           <div className="form_header">
             <h4>Select Hostel</h4>
           </div>
-          {!isSelected ? (
+          {final ? (
+            <motion.div
+              className="container"
+              initial={{
+                x: 0,
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{
+                x: "-100%",
+                opacity: 1,
+              }}
+            >
+              <div className="icon">
+                <Check />
+              </div>
+              <div className="title">
+                This room can reserved for 24 hours, and would go back to being
+                available if payments isn't made.{" "}
+              </div>
+              <div className="action-btn">
+                <Button
+                  onClick={() => {
+                    setSelectedStatus(false);
+                    setFinal(false);
+                    cancel();
+                  }}
+                  className="btn"
+                >
+                  Pay Later
+                </Button>
+                <Button className="btn">Make payment</Button>
+              </div>
+            </motion.div>
+          ) : !isSelected ? (
             <motion.div
               className="form_body"
               initial={{
@@ -247,7 +287,7 @@ export default function AddReservationForm({ cancel }: { cancel: () => void }) {
                     name="bedspace"
                     value={bedSpace}
                     onChange={(e) => {
-                      setBedSpace(e.target.value);
+                      setBedSpace(parseInt(e.target.value as string));
                     }}
                   >
                     {find(
@@ -279,33 +319,36 @@ export default function AddReservationForm({ cancel }: { cancel: () => void }) {
               </motion.div>
             </>
           )}
-          <div className="action">
-            <Button
-              className="btn"
-              onClick={() => {
-                if (isSelected) {
-                  setSelectedStatus(false);
-                } else {
-                  cancel();
-                }
-              }}
-            >
-              {!isSelected ? "cancel" : "previous"}
-            </Button>
-            <Button
-              className="btn"
-              onClick={() => {
-                if (!isSelected) {
-                  handleNext();
-                } else {
-                  handleSubmit();
-                }
-              }}
-            >
-              {isSelected ? "Reserve" : "Next"}
-              {isLoading && <ClipLoader size={30} color="#f45e14" />}
-            </Button>
-          </div>
+
+          {!final && (
+            <div className="action">
+              <Button
+                className="btn"
+                onClick={() => {
+                  if (isSelected) {
+                    setSelectedStatus(false);
+                  } else {
+                    cancel();
+                  }
+                }}
+              >
+                {!isSelected ? "cancel" : "previous"}
+              </Button>
+              <Button
+                className="btn"
+                onClick={() => {
+                  if (!isSelected) {
+                    handleNext();
+                  } else {
+                    handleSubmit();
+                  }
+                }}
+              >
+                {isSelected ? "Reserve" : "Next"}
+                {isLoading && <ClipLoader size={30} color="#f45e14" />}
+              </Button>
+            </div>
+          )}
         </form>
       </div>
     </>
